@@ -46,7 +46,7 @@ return {
     },
   },
 
-  {
+    {
     "mfussenegger/nvim-dap",
     config = function()
       local dap = require("dap")
@@ -105,6 +105,13 @@ return {
       { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
     },
   },
+
+{
+  'Exafunction/codeium.vim',
+  event = 'BufEnter'
+},
+
+
   -- Optional Treesitter Configuration (Commented Out)
   -- {
   --   "nvim-treesitter/nvim-treesitter",

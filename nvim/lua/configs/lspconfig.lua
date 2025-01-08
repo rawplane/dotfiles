@@ -3,7 +3,7 @@ require("nvchad.configs.lspconfig").defaults()
 
 local lspconfig = require "lspconfig"
 
--- EXAMPLE
+-- List Lsp
 local servers = { "html", "cssls",  "pyright", "lua_ls", "ts_ls", "tailwindcss", "astro", "emmet_ls", }
 local nvlsp = require "nvchad.configs.lspconfig"
 
@@ -15,5 +15,3 @@ for _, lsp in ipairs(servers) do
     capabilities = nvlsp.capabilities,
   }
 end
-
-
