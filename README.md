@@ -9,7 +9,6 @@ Personal dotfiles — managed with symlinks via `install.sh`.
 | `nvim/` | Neovim (LazyVim) |
 | `ghostty/` | Ghostty terminal |
 | `zshrc/` | Zsh + Oh My Zsh + p10k |
-| `doom.d/` | Doom Emacs |
 | `archive/` | Archived configs (i3, picom) |
 
 ## Install
