@@ -97,3 +97,9 @@ clearcache() {
 
 # Docker cleanup is separate because it removes unused images and containers
 alias dprune='docker system prune -af --volumes'
+
+#9router
+export PATH="$PATH:$HOME/.9router/bin"
+
+#opencode
+export PATH="$HOME/.opencode/bin:$PATH"
