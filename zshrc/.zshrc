@@ -103,3 +103,6 @@ export PATH="$PATH:$HOME/.9router/bin"
 
 #opencode
 export PATH="$HOME/.opencode/bin:$PATH"
+
+#herdr
+export PATH="$HOME/.local/bin:$PATH"
