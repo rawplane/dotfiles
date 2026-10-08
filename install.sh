@@ -19,7 +19,4 @@ link "$DOTFILES/ghostty/config" "$HOME/.config/ghostty/config"
 # Zsh
 link "$DOTFILES/zshrc/.zshrc" "$HOME/.zshrc"
 
-# Doom Emacs
-link "$DOTFILES/doom.d" "$HOME/.doom.d"
-
 echo "Done."

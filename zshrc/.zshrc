@@ -6,7 +6,7 @@ fi
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git docker npm golang zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -20,6 +20,9 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Zoxide
 eval "$(zoxide init zsh)"
+
+# fzf
+eval "$(fzf --zsh)"
 
 # Deno
 . "/home/raw/.deno/env"
