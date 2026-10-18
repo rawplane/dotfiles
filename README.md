@@ -1,46 +1,46 @@
 # dotfiles
 
-Personal dotfiles untuk Linux Mint / Debian-based — dikelola via `install.sh` dengan backup otomatis.
+Personal dotfiles for Linux Mint / Debian-based systems — managed via `install.sh` with automatic backups.
 
-## Struktur
+## Structure
 
-| Direktori | Konfigurasi |
-|-----------|-------------|
+| Directory | Configuration |
+|-----------|---------------|
 | `nvim/` | Neovim (LazyVim, Neovim >= 0.10) |
 | `ghostty/` | Ghostty terminal |
 | `zshrc/` | Zsh + Oh My Zsh + Powerlevel10k + plugins |
-| `archive/` | Arsip konfigurasi (i3, picom, doom emacs) |
+| `archive/` | Configuration archive (i3, picom, doom emacs) |
 
-## Cara Pasang (Linux Mint)
+## Installation (Linux Mint)
 
-### 1. Mesin Baru (Pasang dependensi + tautkan konfigurasi)
+### 1. Fresh Install (Install dependencies + link configurations)
 ```bash
 git clone <repo-url> ~/dotfiles
 cd ~/dotfiles
 ./install.sh -a
 ```
-Flag `-a` / `--all` otomatis:
-- Pasang paket sistem: `git`, `curl`, `zsh`, `ripgrep`, `fd-find`, `build-essential`.
-- Pasang/update Neovim stable (>= 0.10) jika versi APT lawas.
-- Pasang Oh My Zsh + tema Powerlevel10k + plugin autosuggestions & syntax-highlighting.
-- Buat backup config lama dan buat symlink.
+The `-a` / `--all` flag automatically:
+- Installs system packages: `git`, `curl`, `zsh`, `ripgrep`, `fd-find`, `build-essential`.
+- Installs/updates stable Neovim (>= 0.10) if the APT version is outdated.
+- Installs Oh My Zsh + Powerlevel10k theme + autosuggestions & syntax-highlighting plugins.
+- Backs up existing configs and creates symlinks.
 
-### 2. Hanya Tautkan Konfigurasi (Tanpa sentuh paket sistem)
+### 2. Link Configurations Only (Without modifying system packages)
 ```bash
 ./install.sh -l
 ```
 
-### Opsi CLI `install.sh`
-- `-a, --all`: Pasang dependensi dan tautkan config.
-- `-d, --deps`: Hanya pasang dependensi sistem & plugin zsh.
-- `-l, --link`: Hanya tautkan config dengan backup otomatis.
-- `-h, --help`: Tampilkan bantuan.
+### `install.sh` CLI Options
+- `-a, --all`: Install dependencies and link configs.
+- `-d, --deps`: Install system dependencies & zsh plugins only.
+- `-l, --link`: Link configs only with automatic backup.
+- `-h, --help`: Show help message.
 
-## Catatan Penting
+## Important Notes
 
-- **Font:** Pasang [JetBrainsMono Nerd Font](https://www.nerdfonts.com/font-downloads) agar glyph dan icon Powerlevel10k / Neovim tampil sempurna.
-- **Backup:** File konfigurasi lama yang tertimpa otomatis disimpan di `~/.dotfiles_backup/<timestamp>/`.
-- **Restore:** Untuk memulihkan config lama jika diperlukan:
+- **Font:** Install [JetBrainsMono Nerd Font](https://www.nerdfonts.com/font-downloads) so Powerlevel10k and Neovim glyphs and icons render properly.
+- **Backup:** Replaced configuration files are automatically saved to `~/.dotfiles_backup/<timestamp>/`.
+- **Restore:** To restore previous configs if needed:
   ```bash
   cp -r ~/.dotfiles_backup/<timestamp>/* ~/
   ```
