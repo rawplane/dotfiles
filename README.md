@@ -11,11 +11,17 @@ Personal dotfiles for Linux Mint / Debian-based systems — managed via `install
 | `zshrc/` | Zsh + Oh My Zsh + Powerlevel10k + plugins |
 | `archive/` | Configuration archive (i3, picom, doom emacs) |
 
+### Ghostty Terminal
+
+Ghostty is not available via APT on Linux Mint. Install it manually:
+- **Flatpak** (recommended): `flatpak install flathub com.mitchellh.ghostty`
+- Or download a package from [ghostty.org](https://ghostty.org/download)
+
 ## Installation (Linux Mint)
 
 ### 1. Fresh Install (Install dependencies + link configurations)
 ```bash
-git clone <repo-url> ~/dotfiles
+git clone https://github.com/rawplane/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./install.sh -a
 ```
