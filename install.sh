@@ -39,6 +39,22 @@ backup_and_link() {
   echo "  linked: $dst -> $src"
 }
 
+# Map $(uname -m) to the Neovim release tarball name (default: x86_64)
+nvim_tarball_name() {
+  case "$1" in
+    aarch64|arm64) echo "nvim-linux-aarch64.tar.gz" ;;
+    *)             echo "nvim-linux-x86_64.tar.gz" ;;
+  esac
+}
+
+# Returns 0 when Neovim version $1 is older than the required 0.10
+nvim_needs_upgrade() {
+  local maj min
+  maj=$(echo "$1" | cut -d. -f1)
+  min=$(echo "$1" | cut -d. -f2)
+  (( maj == 0 && min < 10 ))
+}
+
 install_deps() {
   log "Checking and installing dependencies for Linux Mint / Debian..."
 
@@ -61,19 +77,19 @@ install_deps() {
   if ! command -v nvim >/dev/null 2>&1; then
     needs_nvim=1
   else
-    local v maj min
+    local v
     v=$(nvim --version | head -n1 | grep -oE '[0-9]+\.[0-9]+' | head -n1 || echo "0.0")
-    maj=$(echo "$v" | cut -d. -f1)
-    min=$(echo "$v" | cut -d. -f2)
-    if (( maj == 0 && min < 10 )); then
+    if nvim_needs_upgrade "$v"; then
       needs_nvim=1
     fi
   fi
 
   if [[ "$needs_nvim" -eq 1 ]]; then
+    local tarball
+    tarball=$(nvim_tarball_name "$(uname -m)")
     log "Installing latest Neovim to ~/.local..."
     mkdir -p "$HOME/.local"
-    curl -sSL "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz" | tar -C "$HOME/.local" --strip-components=1 -xz
+    curl -sSL "https://github.com/neovim/neovim/releases/latest/download/$tarball" | tar -C "$HOME/.local" --strip-components=1 -xz
     echo "  neovim installed in ~/.local/bin/nvim"
   fi
 
@@ -163,10 +179,13 @@ main() {
       ;;
   esac
 
-  success "Dotfiles setup completed!"
+  success "Dotfiles setup completed! Restart your terminal or run: exec zsh"
   if [[ -n "$BACKUP_DIR" ]]; then
     echo "Existing configs were safely backed up to: $BACKUP_DIR"
   fi
 }
 
-main "$@"
+# Run main only when executed directly (not when sourced by tests)
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  main "$@"
+fi

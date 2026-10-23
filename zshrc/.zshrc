@@ -9,8 +9,14 @@ fi
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
+# Build plugin list conditionally: skip plugins needing binaries that aren't installed
+_plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+command -v docker >/dev/null 2>&1 && _plugins+=(docker)
+command -v go >/dev/null 2>&1 && _plugins+=(golang)
+command -v npm >/dev/null 2>&1 && _plugins+=(npm)
+
 # zsh-syntax-highlighting must stay last in this list
-plugins=(git docker npm golang zsh-autosuggestions zsh-syntax-highlighting)
+plugins=("${_plugins[@]}")
 
 [[ -f "$ZSH/oh-my-zsh.sh" ]] && source "$ZSH/oh-my-zsh.sh"
 
