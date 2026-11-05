@@ -61,6 +61,22 @@ teardown() {
   [ -L "$HOME/.p10k.zsh" ]
 }
 
+# ---- PATH helpers ----
+
+@test "ensure_local_bin_in_path adds ~/.local/bin to PATH when missing" {
+  source "$HOME/install.sh"
+  PATH="/usr/bin:/bin"
+  ensure_local_bin_in_path
+  [[ ":$PATH:" == *":$HOME/.local/bin:"* ]]
+}
+
+@test "ensure_local_bin_in_path does not duplicate ~/.local/bin in PATH" {
+  source "$HOME/install.sh"
+  PATH="$HOME/.local/bin:/usr/bin:/bin"
+  ensure_local_bin_in_path
+  [ "$PATH" = "$HOME/.local/bin:/usr/bin:/bin" ]
+}
+
 # ---- nvim arch detection ----
 
 @test "nvim tarball url uses x86_64 arch" {
