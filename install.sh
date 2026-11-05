@@ -55,7 +55,15 @@ nvim_needs_upgrade() {
   (( maj == 0 && min < 10 ))
 }
 
+# Ensure ~/.local/bin is in PATH for the current session
+ensure_local_bin_in_path() {
+  if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+    export PATH="$HOME/.local/bin:$PATH"
+  fi
+}
+
 install_deps() {
+  ensure_local_bin_in_path
   log "Checking and installing dependencies for Linux Mint / Debian..."
 
   if command -v apt >/dev/null 2>&1; then
