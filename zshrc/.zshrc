@@ -9,10 +9,16 @@ fi
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# zsh-syntax-highlighting must stay last in this list
-plugins=(git docker npm golang zsh-autosuggestions zsh-syntax-highlighting)
+# Build plugin list conditionally: skip plugins needing binaries that aren't installed
+_plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+command -v docker >/dev/null 2>&1 && _plugins+=(docker)
+command -v go >/dev/null 2>&1 && _plugins+=(golang)
+command -v npm >/dev/null 2>&1 && _plugins+=(npm)
 
-source $ZSH/oh-my-zsh.sh
+# zsh-syntax-highlighting must stay last in this list
+plugins=("${_plugins[@]}")
+
+[[ -f "$ZSH/oh-my-zsh.sh" ]] && source "$ZSH/oh-my-zsh.sh"
 
 export EDITOR=nvim
 
@@ -20,7 +26,11 @@ export EDITOR=nvim
 export PATH=$PATH:/usr/local/go/bin
 
 # Homebrew (must come before fzf/zoxide so brew-installed tools are on PATH)
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [[ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+elif command -v brew >/dev/null 2>&1; then
+  eval "$(brew shellenv)"
+fi
 
 # Zoxide
 command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init zsh)"
